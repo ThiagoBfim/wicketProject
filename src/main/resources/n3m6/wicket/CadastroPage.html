@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+<head>
+<!-- For Bootstrap responsive grid -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" />
+
+<meta charset="utf-8">
+<title>Aula 27</title>
+
+<style type="text/css">
+		.ui-autocomplete {
+			max-height: 200px;
+			overflow-y: auto;
+			overflow-x: hidden;
+			padding-right: 20px;
+		}	
+	</style>
+</head>
+<body>
+	<div class="card bg-light container">
+		<h1>Cadastro</h1>
+		<div class="card-body">
+				<div class="alert alert-danger" role="alert" wicket:id="feedback"></div>
+			<form wicket:id="form">
+				<div class="form-group row">
+					<div class="col-md-6">
+						<label for="placa" class="col-sm-2">Placa:</label> <input
+							type="text" name="placa" class="form-control col-sm-10"
+							placeholder="Informe a placa" wicket:id="placa">
+					</div>
+					<div class="col-md-6">
+						<label for="modelo" class="col-sm-2">Modelo:</label> <input
+							type="text" name="modelo" class="form-control col-sm-10"
+							placeholder="Informe o modelo" wicket:id="modelo">
+					
+					</div>
+				</div>
+				<div class="form-group row">
+					<div class="col-md-4">
+						<label for="tracao" class="col-sm-6">Tração:</label> <input
+							type="text" name="tracao" class="form-control col-sm-6"
+							placeholder="Informe a tração" wicket:id="tracao">
+					</div>
+					<div class="col-md-4">
+						<label for="categoria" class="col-sm-2">Categoria:</label> <input
+							type="text" name="categoria" class="form-control col-sm-10"
+							placeholder="Informe a categoria" wicket:id="categoria">
+					</div>
+					<div class="col-md-4">
+						<label for="fabricante" class="col-sm-2">Fabricante:</label> <input
+							type="text" name="fabricante" class="form-control col-sm-10"
+							placeholder="Informe o fabricante" wicket:id="fabricante">
+					</div>
+				</div>
+
+				<div class="form-group row">
+					<div class="text-right">
+						<div class="btn-group">
+							<button id="salvar" type="submit" wicket:id="salvar"
+								class="btn btn-primary">Cadastrar</button>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+		<a href="/" class="btn btn-default">Voltar</a>
+	</div>
+</body>
+</html>

@@ -1,0 +1,54 @@
+*.rf-tr-nd {
+	background: url(../../imagem/line.png) repeat-y !important;
+	min-height: 0 !important;
+}
+
+*.rf-trn {
+	background: url(../../imagem/last.png) no-repeat center left !important;
+	cursor: default !important;
+	font-size: 11px !important;
+	font-family: Arial, Verdana, sans-serif !important;
+	color: #000 !important;
+	padding: 1px 0 1px 0 !important;
+	overflow: hidden !important;
+	width: 100% !important;
+	white-space: nowrap !important;
+}
+
+*.rf-trn-hnd-exp {
+	background: url(../../imagem/minus.png) no-repeat center !important;
+}
+
+*.rf-trn-hnd-colps {
+	background: url(../../imagem/plus.png) no-repeat center !important;
+}
+
+*.rf-tr-nd-last {
+	background: none !important;
+}
+
+*.rf-trn-hnd-ldn-fct {
+	cursor: default !important;
+	display: none !important;
+}
+
+*.rf-tr-nd *.rf-tr-nd {
+	margin-left: 16px !important;
+}
+
+*.rf-pick-btn-dis {
+	color: inactivecaptiontext !important;
+}
+
+*.rf-cal-popup {
+	border-bottom: 1px solid;
+	border-right: 1px solid;
+	padding: 0;
+	vertical-align: middle;
+	text-align: center;
+	border-bottom-color: #BED6F8;
+	border-right-color: #BED6F8;
+	background-color: #FFF;
+	font-size: 11px;
+	font-family: Arial, Verdana, sans-serif;
+}

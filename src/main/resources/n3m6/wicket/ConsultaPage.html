@@ -1,0 +1,34 @@
+<!doctype html>
+<html>
+<head>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" />
+<meta charset="utf-8">
+</head>
+<body>
+	<div id="vazio" class="alert alert-info" role="alert">Nenhum
+		carro cadastrado.</div>
+	<div class="container">
+		<table id="tabela" class="table table-striped " wicket:id="carros">
+			<thead>
+				<tr>
+					<th>Placa</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody id="carros">
+				<tr>
+					<td><span wicket:id="placa"></span></td>
+					<td class="text-right">
+						<div class="btn-group btn-group-sm">
+							<a href="#" class="btn btn-dark">Alterar</a> <a href="#"
+								class="btn btn-danger">Excluir</a>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<a href="/" class="btn btn-default">Voltar</a>
+	</div>
+</body>
+</html>
