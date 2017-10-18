@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.list.ListItem;
@@ -13,6 +14,7 @@ import org.apache.wicket.model.util.ListModel;
 
 import n3m6.entity.Carro;
 import n3m6.service.CarroService;
+import n3m6.wicket.assets.css.CssAssets;
 
 @SuppressWarnings("serial")
 public class ConsultaPage extends WebPage {
@@ -20,7 +22,9 @@ public class ConsultaPage extends WebPage {
 	@Inject
 	private CarroService carroService;
 
-	public ConsultaPage() {
+	@Override
+	public void renderHead(IHeaderResponse response) {
+		CssAssets.renderHead(response);
 	}
 
 	@Override

@@ -3,6 +3,8 @@ package n3m6.entity;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -17,6 +19,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import n3m6.entity.validator.PLACA;
 
 @Entity
 @EqualsAndHashCode(of = "id")
@@ -29,6 +32,7 @@ public @Data class Carro implements Serializable {
 	private Integer id;
 
 	@NotEmpty
+	@PLACA
 	private String placa;
 
 	@ManyToOne
@@ -36,8 +40,9 @@ public @Data class Carro implements Serializable {
 	@NotNull
 	private Modelo modelo;
 
-	@NotEmpty
-	private String tracao;
+	@Enumerated(EnumType.STRING)
+	@NotNull
+	private Tracao tracao;
 
 	@NotEmpty
 	private String categoria;
@@ -69,11 +74,11 @@ public @Data class Carro implements Serializable {
 		this.modelo = modelo;
 	}
 
-	public String getTracao() {
+	public Tracao getTracao() {
 		return tracao;
 	}
 
-	public void setTracao(String tracao) {
+	public void setTracao(Tracao tracao) {
 		this.tracao = tracao;
 	}
 
