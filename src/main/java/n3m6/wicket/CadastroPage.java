@@ -14,12 +14,14 @@ import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.ChoiceRenderer;
+import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.RadioChoice;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.validation.IValidatable;
@@ -29,7 +31,8 @@ import org.springframework.util.CollectionUtils;
 
 import n3m6.entity.Carro;
 import n3m6.entity.Modelo;
-import n3m6.entity.Tracao;
+import n3m6.entity.enuns.Categoria;
+import n3m6.entity.enuns.Tracao;
 import n3m6.service.CarroService;
 import n3m6.service.ModeloService;
 import n3m6.wicket.assets.css.CssAssets;
@@ -103,13 +106,22 @@ public class CadastroPage extends WebPage {
 		autoCompleteTextField.add(new BeanPropertyValidator<String>(Carro.class, "modelo"));
 		form.add(autoCompleteTextField);
 
-		RadioChoice<Tracao> group = new RadioChoice<>("tracao", Arrays.asList(Tracao.values()),
+		RadioChoice<Tracao> radioGroupTracao = new RadioChoice<>("tracao", Arrays.asList(Tracao.values()),
 				new ChoiceRenderer<Tracao>("descricao"));
-		group.setSuffix("   ");
-		group.add(new BeanPropertyValidator<Tracao>(Carro.class, "tracao"));
-		form.add(group);
+		radioGroupTracao.setSuffix("   ");
+		radioGroupTracao.add(new BeanPropertyValidator<Tracao>(Carro.class, "tracao"));
+		form.add(radioGroupTracao);
 
-		form.add(createTextWithValidator("categoria"));
+		DropDownChoice<Categoria> dropDownCategoria = new DropDownChoice<Categoria>("categoria",
+				new LoadableDetachableModel<List<Categoria>>() {
+					@Override
+					protected List<Categoria> load() {
+						return Arrays.asList(Categoria.values());
+					}
+				});
+		dropDownCategoria.add(new BeanPropertyValidator<Categoria>(Carro.class, "categoria"));
+		form.add(dropDownCategoria);
+		
 		form.add(createTextWithValidator("fabricante"));
 		add(form);
 

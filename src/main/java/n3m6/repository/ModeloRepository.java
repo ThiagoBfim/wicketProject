@@ -8,7 +8,7 @@ import n3m6.entity.Modelo;
 
 public interface ModeloRepository extends JpaRepository<Modelo, Integer> {
 
-	List<Modelo> findByDescricaoStartsWith(String input);
+	List<Modelo> findByDescricaoStartsWithIgnoreCase(String input);
 
 	Modelo findByDescricao(String descricao);
 

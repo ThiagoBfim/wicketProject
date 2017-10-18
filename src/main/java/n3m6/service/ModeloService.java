@@ -35,7 +35,7 @@ public class ModeloService {
 
 	@Transactional
 	public List<Modelo> retrieveStartsWith(String input) {
-		return repository.findByDescricaoStartsWith(input);
+		return repository.findByDescricaoStartsWithIgnoreCase(input);
 	}
 
 	public Modelo findByDescricao(String descricao) {

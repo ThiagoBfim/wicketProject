@@ -19,6 +19,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import n3m6.entity.enuns.Categoria;
+import n3m6.entity.enuns.Tracao;
 import n3m6.entity.validator.PLACA;
 
 @Entity
@@ -44,8 +46,9 @@ public @Data class Carro implements Serializable {
 	@NotNull
 	private Tracao tracao;
 
-	@NotEmpty
-	private String categoria;
+	@Enumerated(EnumType.STRING)
+	@NotNull
+	private Categoria categoria;
 
 	@NotEmpty
 	private @Getter @Setter String fabricante;
@@ -82,11 +85,11 @@ public @Data class Carro implements Serializable {
 		this.tracao = tracao;
 	}
 
-	public String getCategoria() {
+	public Categoria getCategoria() {
 		return categoria;
 	}
 
-	public void setCategoria(String categoria) {
+	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
 	}
 

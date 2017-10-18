@@ -1,4 +1,4 @@
-package n3m6.entity;
+package n3m6.entity.enuns;
 
 public enum Tracao {
 
