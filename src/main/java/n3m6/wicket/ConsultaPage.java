@@ -11,9 +11,7 @@ import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.form.AjaxFormChoiceComponentUpdatingBehavior;
 import org.apache.wicket.ajax.form.AjaxFormComponentUpdatingBehavior;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
-import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.html.WebMarkupContainer;
-import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.ChoiceRenderer;
 import org.apache.wicket.markup.html.form.DropDownChoice;
@@ -33,21 +31,15 @@ import n3m6.entity.Carro;
 import n3m6.entity.enuns.Categoria;
 import n3m6.entity.enuns.Tracao;
 import n3m6.service.CarroService;
-import n3m6.wicket.assets.css.CssAssets;
 
 @SuppressWarnings("serial")
-public class ConsultaPage extends WebPage {
+public class ConsultaPage extends HomePage {
 
 	@Inject
 	private CarroService carroService;
 	private List<Carro> carros = new ArrayList<>();
 
 	private WebMarkupContainer containerTable;
-
-	@Override
-	public void renderHead(IHeaderResponse response) {
-		CssAssets.renderHead(response);
-	}
 
 	@Override
 	protected void onInitialize() {
@@ -169,7 +161,7 @@ public class ConsultaPage extends WebPage {
 
 			@Override
 			public void onClick(AjaxRequestTarget target) {
-				this.setResponsePage(new CadastroPage(carro));
+				setResponsePage(new CadastroPage(carro));
 			}
 		};
 	}

@@ -12,8 +12,6 @@ import org.apache.wicket.ajax.form.AjaxFormComponentUpdatingBehavior;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.extensions.ajax.markup.html.autocomplete.AutoCompleteTextField;
 import org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow;
-import org.apache.wicket.markup.head.IHeaderResponse;
-import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.ChoiceRenderer;
 import org.apache.wicket.markup.html.form.DropDownChoice;
@@ -38,12 +36,20 @@ import n3m6.entity.enuns.Categoria;
 import n3m6.entity.enuns.Tracao;
 import n3m6.service.CarroService;
 import n3m6.service.ModeloService;
-import n3m6.wicket.assets.css.CssAssets;
-import n3m6.wicket.assets.js.JavascriptAssets;
 import n3m6.wicket.jsr303validator.BeanPropertyValidator;
 
 @SuppressWarnings("serial")
-public class CadastroPage extends WebPage {
+public class CadastroPage extends HomePage {
+
+	// public CadastroPage(String id, IModel<Carro> model) {
+	// super(id, model);
+	// this.carro.setObject(model.getObject());
+	// }
+	//
+	// public CadastroPage(String id) {
+	// super(id);
+	// this.carro.setObject(new Carro());
+	// }
 
 	@Inject
 	private CarroService carroService;
@@ -59,12 +65,6 @@ public class CadastroPage extends WebPage {
 
 	public CadastroPage(Carro carro) {
 		this.carro.setObject(carro);
-	}
-
-	@Override
-	public void renderHead(IHeaderResponse response) {
-		CssAssets.renderHead(response);
-		JavascriptAssets.renderHead(response);
 	}
 
 	@Override

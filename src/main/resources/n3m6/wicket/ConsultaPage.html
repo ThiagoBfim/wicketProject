@@ -1,77 +1,81 @@
-<!doctype html>
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.4-strict.dtd">
 <head>
 <meta charset="utf-8">
+<title>ignored</title>
 </head>
 <body>
+	<wicket:extend>
+		<div class="card bg-light container">
+			<h1>Pesquisar</h1>
+			<form wicket:id="form">
+				<div class="form-group row">
+					<div class="col-md-6">
+						<label for="placa" class="col-sm-6">Placa:</label> <input
+							type="text" name="placa" class="form-control col-sm-10"
+							wicket:id="placa">
+					</div>
+					<div class="col-md-6">
+						<label for="modelo" class="col-sm-6">Modelo:</label> <input
+							type="text" name="modelo" class="form-control col-sm-10"
+							wicket:id="modelo">
 
-	<div class="card bg-light container">
-		<h1>Pesquisar</h1>
-		<form wicket:id="form">
-			<div class="form-group row">
-				<div class="col-md-6">
-					<label for="placa" class="col-sm-6">Placa:</label> <input
-						type="text" name="placa" class="form-control col-sm-10 placa"
-						wicket:id="placa">
+					</div>
 				</div>
-				<div class="col-md-6">
-					<label for="modelo" class="col-sm-6">Modelo:</label> <input
-						type="text" name="modelo" class="form-control col-sm-10"
-						wicket:id="modelo">
+				<div class="form-group row">
+					<div class="col-md-4">
+						<label for="tracao" class="col-sm-12">Tração:</label> <span
+							class="radio-inline col-sm-12" wicket:id="tracao"
+							id="numberRadioChoice"> </span>
+					</div>
+					<div class="col-md-4">
+						<label for="categoria" class="col-sm-6">Categoria:</label> <select
+							wicket:id="categoria" class="form-control col-sm-10"></select>
+					</div>
+					<div class="col-md-4">
+						<label for="fabricante" class="col-sm-6">Fabricante:</label> <input
+							type="text" name="fabricante" class="form-control col-sm-10"
+							wicket:id="fabricante">
+					</div>
+				</div>
+			</form>
+		</div>
 
-				</div>
-			</div>
-			<div class="form-group row">
-				<div class="col-md-4">
-					<label for="tracao" class="col-sm-12">Tração:</label> <span
-						class="radio-inline col-sm-12" wicket:id="tracao"
-						id="numberRadioChoice"> </span>
-				</div>
-				<div class="col-md-4">
-					<label for="categoria" class="col-sm-6">Categoria:</label> <select
-						wicket:id="categoria" class="form-control col-sm-10"></select>
-				</div>
-				<div class="col-md-4">
-					<label for="fabricante" class="col-sm-6">Fabricante:</label> <input
-						type="text" name="fabricante" class="form-control col-sm-10"
-						wicket:id="fabricante">
-				</div>
-			</div>
-		</form>
-	</div>
-
-	<div class="container" wicket:id="containerTable"
-		style="padding-top: 20px;">
-		<div wicket:id="noResult" id="vazio" class="alert alert-info"
-			role="alert">Nenhum carro cadastrado.</div>
-		<table id="tabela" class="table table-striped ">
-			<thead wicket:id="colunas">
-				<tr>
-					<th>Placa</th>
-					<th>Modelo</th>
-					<th>Tração</th>
-					<th>Categoria</th>
-					<th>Fabricante</th>
-					<th></th>
-				</tr>
-			</thead>
-			<tbody id="carros" wicket:id="carros">
-				<tr>
-					<td><span wicket:id="placa"></span></td>
-					<td><span wicket:id="modelo"></span></td>
-					<td><span wicket:id="tracao"></span></td>
-					<td><span wicket:id="categoria"></span></td>
-					<td><span wicket:id="fabricante"></span></td>
-					<td class="text-right">
-						<div class="btn-group btn-group-sm">
-							<a href="#" class="btn btn-dark" wicket:id="editar">Alterar</a> <a
-								href="#" class="btn btn-danger" wicket:id="excluir">Excluir</a>
-						</div>
-					</td>
-				</tr>
-			</tbody>
-		</table>
-		<a href="/" class="btn btn-default">Voltar</a>
-	</div>
+		<div class="container" wicket:id="containerTable"
+			style="padding-top: 20px;">
+			<div wicket:id="noResult" id="vazio" class="alert alert-info"
+				role="alert">Nenhum carro cadastrado.</div>
+			<table id="tabela" class="table table-striped ">
+				<thead wicket:id="colunas">
+					<tr>
+						<th>Placa</th>
+						<th>Modelo</th>
+						<th>Tração</th>
+						<th>Categoria</th>
+						<th>Fabricante</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody id="carros" wicket:id="carros">
+					<tr>
+						<td><span wicket:id="placa"></span></td>
+						<td><span wicket:id="modelo"></span></td>
+						<td><span wicket:id="tracao"></span></td>
+						<td><span wicket:id="categoria"></span></td>
+						<td><span wicket:id="fabricante"></span></td>
+						<td class="text-right">
+							<div class="btn-group btn-group-sm">
+								<a href="#" class="btn btn-dark" wicket:id="editar">Alterar</a>
+								<a href="#" class="btn btn-danger" wicket:id="excluir">Excluir</a>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<a href="/" class="btn btn-default">Voltar</a>
+		</div>
+	</wicket:extend>
 </body>
 </html>

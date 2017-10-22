@@ -1,62 +1,65 @@
-<!doctype html>
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.4-strict.dtd">
 <head>
 <meta charset="utf-8">
-<title>Aula 27</title>
+<title>ignored</title>
 </head>
 <body>
-	<div class="card bg-light container">
-		<h1>Cadastro</h1>
-		<div class="card-body">
-			<div class="alert alert-danger" role="alert" wicket:id="feedback"></div>
-			<form wicket:id="form">
-				<div class="form-group row">
-					<div class="col-md-6">
-						<label for="placa" class="col-sm-6">Placa:</label> <input
-							type="text" name="placa" class="form-control col-sm-10 placa"
-							placeholder="Informe a placa" wicket:id="placa">
-					</div>
-					<div class="col-md-6">
-						<label for="modelo" class="col-sm-6">Modelo:</label> <input
-							type="text" name="modelo" class="form-control col-sm-10"
-							placeholder="Informe o modelo" wicket:id="modelo">
+	<wicket:extend>
+		<div class="card bg-light container">
+			<h1>Cadastro</h1>
+			<div class="card-body">
+				<div class="alert alert-danger" role="alert" wicket:id="feedback"></div>
+				<form wicket:id="form">
+					<div class="form-group row">
+						<div class="col-md-6">
+							<label for="placa" class="col-sm-6">Placa:</label> <input
+								type="text" name="placa" class="form-control col-sm-10 placa"
+								placeholder="Informe a placa" wicket:id="placa">
+						</div>
+						<div class="col-md-6">
+							<label for="modelo" class="col-sm-6">Modelo:</label> <input
+								type="text" name="modelo" class="form-control col-sm-10"
+								placeholder="Informe o modelo" wicket:id="modelo">
 
+						</div>
 					</div>
-				</div>
-				<div class="form-group row">
-					<div class="col-md-4">
-						<label for="tracao" class="col-sm-12">Tração:</label> <span
-							class="radio-inline col-sm-12" wicket:id="tracao"
-							id="numberRadioChoice"> </span>
-					</div>
-					<div class="col-md-4">
-						<label for="categoria" class="col-sm-6">Categoria:</label> <select
-							wicket:id="categoria" class="form-control col-sm-10"></select>
-					</div>
-					<div class="col-md-4">
-						<label for="fabricante" class="col-sm-6">Fabricante:</label>
-						<div class="input-group">
-							<input type="text" name="fabricante" readonly
-							class="form-control col-sm-10" placeholder="Informe o fabricante"
-							wicket:id="fabricante">
+					<div class="form-group row">
+						<div class="col-md-4">
+							<label for="tracao" class="col-sm-12">Tração:</label> <span
+								class="radio-inline col-sm-12" wicket:id="tracao"
+								id="numberRadioChoice"> </span>
+						</div>
+						<div class="col-md-4">
+							<label for="categoria" class="col-sm-6">Categoria:</label> <select
+								wicket:id="categoria" class="form-control col-sm-10"></select>
+						</div>
+						<div class="col-md-4">
+							<label for="fabricante" class="col-sm-6">Fabricante:</label>
+							<div class="input-group">
+								<input type="text" name="fabricante" readonly
+									class="form-control col-sm-10"
+									placeholder="Informe o fabricante" wicket:id="fabricante">
 								<button href="#" type="button" wicket:id="pesquisarFabricante">Pesquisar</button>
+							</div>
 						</div>
 					</div>
-				</div>
 
-				<div class="form-group row float-right">
-					<div class="text-right">
-						<div class="btn-group">
-							<button id="salvar" type="submit" wicket:id="salvar"
-								class="btn btn-primary"></button>
+					<div class="form-group row float-right">
+						<div class="text-right">
+							<div class="btn-group">
+								<button id="salvar" type="submit" wicket:id="salvar"
+									class="btn btn-primary"></button>
+							</div>
 						</div>
 					</div>
-				</div>
-			</form>
-			<a href="/" class="btn btn-default">Voltar</a>
+				</form>
+				<a href="/" class="btn btn-default">Voltar</a>
+			</div>
 		</div>
-	</div>
-	<div wicket:id="modal">
-	</div>
+		<div wicket:id="modal"></div>
+	</wicket:extend>
 </body>
 </html>
