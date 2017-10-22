@@ -14,7 +14,6 @@ import org.apache.wicket.extensions.ajax.markup.html.autocomplete.AutoCompleteTe
 import org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.html.WebPage;
-import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.ChoiceRenderer;
 import org.apache.wicket.markup.html.form.DropDownChoice;
@@ -79,7 +78,7 @@ public class CadastroPage extends WebPage {
 		};
 		add(feedbackPanel);
 		String msg = "Cadastrar";
-		if(carro.getObject().getId() != null){
+		if (carro.getObject().getId() != null) {
 			msg = "Salvar";
 		}
 		form.add(createButtonSubmit("salvar", msg));
@@ -144,7 +143,7 @@ public class CadastroPage extends WebPage {
 			@Override
 			protected void onSelecionarCheck(AjaxRequestTarget target) {
 				modalWindow.close(target);
-				form.modelChanged();
+				fabricanteText.modelChanged();
 				target.add(fabricanteText);
 			}
 		};

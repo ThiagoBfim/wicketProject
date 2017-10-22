@@ -8,6 +8,7 @@ import javax.inject.Inject;
 
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.form.AjaxFormChoiceComponentUpdatingBehavior;
 import org.apache.wicket.ajax.form.AjaxFormComponentUpdatingBehavior;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.markup.head.IHeaderResponse;
@@ -29,12 +30,10 @@ import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.model.util.ListModel;
 
 import n3m6.entity.Carro;
-import n3m6.entity.Fabricante;
 import n3m6.entity.enuns.Categoria;
 import n3m6.entity.enuns.Tracao;
 import n3m6.service.CarroService;
 import n3m6.wicket.assets.css.CssAssets;
-import n3m6.wicket.jsr303validator.BeanPropertyValidator;
 
 @SuppressWarnings("serial")
 public class ConsultaPage extends WebPage {
@@ -58,26 +57,29 @@ public class ConsultaPage extends WebPage {
 		ListModel<Carro> carrosModel = new ListModel<Carro>();
 		Form<Carro> form = new Form<>("form", new CompoundPropertyModel<>(carro));
 		TextField<String> placaText = new TextField<>("placa");
-		placaText.add(new AjaxFormComponentUpdatingBehavior("blur") {
-
-			@Override
-			protected void onUpdate(AjaxRequestTarget target) {
-				carros = carroService.listar();
-				carrosModel.setObject(carros);
-				target.add(containerTable);
-			}
-
-		});
+		placaText.add(createEventBlurForPesquisar(carro, carrosModel));
 		form.add(placaText);
 
-		TextField<String> modeloText = new TextField<>("modelo");
+		IModel<String> modeloModel = new PropertyModel<>(carro, "modelo.descricao");
+		TextField<String> modeloText = new TextField<>("modelo", modeloModel);
+		modeloText.add(createEventBlurForPesquisar(carro, carrosModel));
 		form.add(modeloText);
 
 		RadioChoice<Tracao> radioGroupTracao = new RadioChoice<>("tracao", Arrays.asList(Tracao.values()),
 				new ChoiceRenderer<Tracao>("descricao"));
 		radioGroupTracao.setSuffix("   ");
+		radioGroupTracao.add(new AjaxFormChoiceComponentUpdatingBehavior() {
+
+			@Override
+			protected void onUpdate(AjaxRequestTarget target) {
+				carros = carroService.filtrar(carro.getObject());
+				carrosModel.setObject(carros);
+				target.add(containerTable);
+
+			}
+		});
 		form.add(radioGroupTracao);
-		
+
 		DropDownChoice<Categoria> dropDownCategoria = new DropDownChoice<Categoria>("categoria",
 				new LoadableDetachableModel<List<Categoria>>() {
 					@Override
@@ -85,24 +87,34 @@ public class ConsultaPage extends WebPage {
 						return Arrays.asList(Categoria.values());
 					}
 				});
+		dropDownCategoria.add(createEventBlurForPesquisar(carro, carrosModel));
 		form.add(dropDownCategoria);
-		
-//		IModel<Fabricante> fabricanteModel = new PropertyModel<>(carro, "fabricante");
-		TextField<Fabricante> fabricanteText = new TextField<Fabricante>("fabricante");
+
+		IModel<String> fabricanteModel = new PropertyModel<>(carro, "fabricante.nome");
+		TextField<String> fabricanteText = new TextField<String>("fabricante", fabricanteModel);
+		fabricanteText.add(createEventBlurForPesquisar(carro, carrosModel));
 		form.add(fabricanteText);
 
 		add(form);
 		criarComponentsTabela(carrosModel);
 	}
 
-	private void criarComponentsTabela(ListModel<Carro> carrosModel) {
-		containerTable = new WebMarkupContainer("containerTable") {
+	private AjaxFormComponentUpdatingBehavior createEventBlurForPesquisar(IModel<Carro> carro,
+			ListModel<Carro> carrosModel) {
+		return new AjaxFormComponentUpdatingBehavior("blur") {
+
 			@Override
-			protected void onConfigure() {
-				carros = carroService.listar();
+			protected void onUpdate(AjaxRequestTarget target) {
+				carros = carroService.filtrar(carro.getObject());
 				carrosModel.setObject(carros);
+				target.add(containerTable);
 			}
+
 		};
+	}
+
+	private void criarComponentsTabela(ListModel<Carro> carrosModel) {
+		containerTable = new WebMarkupContainer("containerTable");
 		containerTable.setOutputMarkupId(true);
 		carros = carroService.listar();
 		carrosModel.setObject(carros);
@@ -123,7 +135,7 @@ public class ConsultaPage extends WebPage {
 				item.add(new Label("tracao", new PropertyModel<>(item.getModel(), "tracao.descricao")));
 				item.add(new Label("categoria", new PropertyModel<>(item.getModel(), "categoria.descricao")));
 				item.add(new Label("fabricante", new PropertyModel<>(item.getModel(), "fabricante")));
-				item.add(createButtonExcluir("excluir", item.getModelObject().getId()));
+				item.add(createButtonExcluir("excluir", item.getModelObject().getId(), carrosModel));
 				item.add(createButtonEditar("editar", item.getModelObject()));
 			}
 
@@ -139,12 +151,14 @@ public class ConsultaPage extends WebPage {
 		add(containerTable);
 	}
 
-	private AjaxLink<String> createButtonExcluir(String id, Integer idCarro) {
+	private AjaxLink<String> createButtonExcluir(String id, Integer idCarro, ListModel<Carro> carrosModel) {
 		return new AjaxLink<String>(id) {
 
 			@Override
 			public void onClick(AjaxRequestTarget target) {
 				carroService.remover(idCarro);
+				carros = carroService.listar();
+				carrosModel.setObject(carros);
 				target.add(containerTable);
 			}
 		};

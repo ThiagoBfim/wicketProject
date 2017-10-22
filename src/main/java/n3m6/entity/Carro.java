@@ -40,7 +40,7 @@ public @Data class Carro implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "modelo_id")
 	@NotNull
-	private Modelo modelo;
+	private Modelo modelo = new Modelo();
 
 	@Enumerated(EnumType.STRING)
 	@NotNull
@@ -53,7 +53,7 @@ public @Data class Carro implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "fabricante_id")
 	@NotNull
-	private Fabricante fabricante;
+	private Fabricante fabricante = new Fabricante();
 
 	public Integer getId() {
 		return id;

@@ -14,7 +14,6 @@ import org.apache.wicket.behavior.Behavior;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.Radio;
 import org.apache.wicket.markup.html.form.RadioGroup;
@@ -76,7 +75,6 @@ public class ManterFabricantePanel extends Panel {
 		modelInterno = new Model<>();
 		modelInterno.setObject(new Fabricante());
 
-		
 		RadioGroup<Boolean> group = new RadioGroup<Boolean>("group", Model.of(Boolean.TRUE)) {
 			@Override
 			protected void onConfigure() {
@@ -96,6 +94,7 @@ public class ManterFabricantePanel extends Panel {
 				target.add(form);
 
 			}
+
 			@Override
 			protected void onError(AjaxRequestTarget target, RuntimeException e) {
 				super.onError(target, e);
@@ -104,9 +103,9 @@ public class ManterFabricantePanel extends Panel {
 				form.getFeedbackMessages().clear();
 				target.add(form);
 			}
-			
+
 			private void onChangeNameFabricante() {
-				
+
 				fabricantes.forEach(f -> {
 					if (f.equals(model.getObject())) {
 						f.setSelecionado(Boolean.TRUE);
@@ -142,7 +141,8 @@ public class ManterFabricantePanel extends Panel {
 			protected void populateItem(ListItem<Fabricante> item) {
 				item.add(new Label("nome", new PropertyModel<>(item.getModel(), "nome")));
 				item.add(new Label("pais", new PropertyModel<>(item.getModel(), "pais")));
-				Radio<Boolean> fabricanteSelecionado = new Radio<Boolean>("selecionado", new PropertyModel<>(item.getModel(), "selecionado"));
+				Radio<Boolean> fabricanteSelecionado = new Radio<Boolean>("selecionado",
+						new PropertyModel<>(item.getModel(), "selecionado"));
 				fabricanteSelecionado.getModelObject();
 				fabricanteSelecionado.add(new AjaxEventBehavior("change") {
 
@@ -163,7 +163,7 @@ public class ManterFabricantePanel extends Panel {
 			};
 		};
 		form.add(containerNoResult);
-		group.add(fabricanteListView);	
+		group.add(fabricanteListView);
 		form.add(group);
 		form.add(createButtonSubmit("salvar"));
 
@@ -206,6 +206,7 @@ public class ManterFabricantePanel extends Panel {
 				fabricanteService.salvar(model.getObject());
 				onSelecionarCheck(target);
 			}
+
 			@Override
 			protected void onError(AjaxRequestTarget target) {
 				super.onError(target);
