@@ -9,6 +9,7 @@ import org.apache.wicket.ajax.AjaxEventBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.form.AjaxFormComponentUpdatingBehavior;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
+import org.apache.wicket.ajax.markup.html.form.AjaxSubmitLink;
 import org.apache.wicket.behavior.Behavior;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.html.WebMarkupContainer;
@@ -115,6 +116,7 @@ public class ManterFabricantePanel extends Panel {
 				fabricantesModel.setObject(fabricantes);
 			}
 		});
+
 		form.add(nomeText);
 		Label paisLabel = new Label("labelPais", "País:") {
 			@Override
@@ -172,7 +174,7 @@ public class ManterFabricantePanel extends Panel {
 				setVisible(form.hasError());
 			};
 		};
-		add(feedbackPanel);
+		form.add(feedbackPanel);
 
 		add(form);
 	}
@@ -188,8 +190,8 @@ public class ManterFabricantePanel extends Panel {
 		};
 	}
 
-	private Button createButtonSubmit(String id) {
-		return new Button(id) {
+	private AjaxSubmitLink createButtonSubmit(String id) {
+		return new AjaxSubmitLink(id) {
 
 			@Override
 			protected void onConfigure() {
@@ -198,16 +200,16 @@ public class ManterFabricantePanel extends Panel {
 			}
 
 			@Override
-			public void onSubmit() {
+			public void onSubmit(AjaxRequestTarget target) {
 				this.getParent().modelChanged();
 				model.setObject(modelInterno.getObject());
 				fabricanteService.salvar(model.getObject());
+				onSelecionarCheck(target);
 			}
-
 			@Override
-			public void onError() {
-				// target.add(form);
-				System.out.println("teste");
+			protected void onError(AjaxRequestTarget target) {
+				super.onError(target);
+				target.add(form);
 			}
 		};
 	}

@@ -14,6 +14,7 @@ import org.apache.wicket.extensions.ajax.markup.html.autocomplete.AutoCompleteTe
 import org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.html.WebPage;
+import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.ChoiceRenderer;
 import org.apache.wicket.markup.html.form.DropDownChoice;
@@ -54,7 +55,11 @@ public class CadastroPage extends WebPage {
 	private IModel<Carro> carro = new Model<>();
 
 	public CadastroPage() {
-		carro.setObject(new Carro());
+		this.carro.setObject(new Carro());
+	}
+
+	public CadastroPage(Carro carro) {
+		this.carro.setObject(carro);
 	}
 
 	@Override
@@ -73,8 +78,11 @@ public class CadastroPage extends WebPage {
 			};
 		};
 		add(feedbackPanel);
-
-		form.add(createButtonSubmit("salvar"));
+		String msg = "Cadastrar";
+		if(carro.getObject().getId() != null){
+			msg = "Salvar";
+		}
+		form.add(createButtonSubmit("salvar", msg));
 		TextField<String> placaText = createTextWithValidator("placa");
 		placaText.add(new AjaxFormComponentUpdatingBehavior("change") {
 
@@ -125,19 +133,19 @@ public class CadastroPage extends WebPage {
 		form.add(dropDownCategoria);
 
 		IModel<Fabricante> fabricanteModel = new PropertyModel<>(carro, "fabricante");
-		TextField<Fabricante> fabricanteText = new TextField<Fabricante>("fabricante", new PropertyModel<>(carro, "fabricanteFormat"));
+		TextField<Fabricante> fabricanteText = new TextField<Fabricante>("fabricante",
+				new PropertyModel<>(carro, "fabricanteFormat"));
 		fabricanteText.add(new BeanPropertyValidator<Fabricante>(Carro.class, "fabricante"));
 		fabricanteText.setOutputMarkupId(true);
 		form.add(fabricanteText);
-	
 
 		ModalWindow modalWindow = new ModalWindow("modal");
 		ManterFabricantePanel fabricantePanel = new ManterFabricantePanel(modalWindow.getContentId(), fabricanteModel) {
 			@Override
 			protected void onSelecionarCheck(AjaxRequestTarget target) {
 				modalWindow.close(target);
-				fabricanteText.modelChanged();
-				target.add(form);
+				form.modelChanged();
+				target.add(fabricanteText);
 			}
 		};
 		modalWindow.showUnloadConfirmation(false);
@@ -164,15 +172,17 @@ public class CadastroPage extends WebPage {
 		return textField;
 	}
 
-	private Button createButtonSubmit(String id) {
-		return new Button(id) {
+	private Button createButtonSubmit(String id, String msg) {
+		return new Button(id, new Model<>(msg)) {
 			@Override
 			public void onSubmit() {
 				Modelo modelo = modeloService.findByDescricao(carro.getObject().getModelo().getDescricao());
 				if (modelo != null) {
 					carro.getObject().setModelo(modelo);
 				} else {
-					modeloService.salvar(carro.getObject().getModelo());
+					modelo = carro.getObject().getModelo();
+					modelo.setId(null);
+					modeloService.salvar(modelo);
 				}
 				carroService.salvar(carro.getObject());
 				this.setResponsePage(new ConsultaPage());
