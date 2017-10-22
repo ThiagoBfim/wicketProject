@@ -5,6 +5,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.apache.wicket.markup.head.IHeaderResponse;
+import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.list.ListItem;
@@ -38,9 +39,20 @@ public class ConsultaPage extends WebPage {
 			@Override
 			protected void populateItem(ListItem<Carro> item) {
 				item.add(new Label("placa", new PropertyModel<>(item.getModel(), "placa")));
+				item.add(new Label("modelo", new PropertyModel<>(item.getModel(), "modelo.descricao")));
+				item.add(new Label("tracao", new PropertyModel<>(item.getModel(), "tracao.descricao")));
+				item.add(new Label("categoria", new PropertyModel<>(item.getModel(), "categoria.descricao")));
+				item.add(new Label("fabricante", new PropertyModel<>(item.getModel(), "fabricante")));
 
 			}
 		};
 		add(carroListView);
+		carroListView.setVisible(!carros.isEmpty());
+		WebMarkupContainer containerNoResult = new WebMarkupContainer("noResult") {
+			protected void onConfigure() {
+				setVisible(carros.isEmpty());
+			};
+		};
+		add(containerNoResult);
 	}
 }

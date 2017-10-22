@@ -4,19 +4,27 @@
 <meta charset="utf-8">
 </head>
 <body>
-	<div id="vazio" class="alert alert-info" role="alert">Nenhum
-		carro cadastrado.</div>
 	<div class="container">
+		<div wicket:id="noResult" id="vazio" class="alert alert-info"
+			role="alert">Nenhum carro cadastrado.</div>
 		<table id="tabela" class="table table-striped " wicket:id="carros">
 			<thead>
 				<tr>
 					<th>Placa</th>
+					<th>Modelo</th>
+					<th>Tração</th>
+					<th>Categoria</th>
+					<th>Fabricante</th>
 					<th></th>
 				</tr>
 			</thead>
 			<tbody id="carros">
 				<tr>
 					<td><span wicket:id="placa"></span></td>
+					<td><span wicket:id="modelo"></span></td>
+					<td><span wicket:id="tracao"></span></td>
+					<td><span wicket:id="categoria"></span></td>
+					<td><span wicket:id="fabricante"></span></td>
 					<td class="text-right">
 						<div class="btn-group btn-group-sm">
 							<a href="#" class="btn btn-dark">Alterar</a> <a href="#"

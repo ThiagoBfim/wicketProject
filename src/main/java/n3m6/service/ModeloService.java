@@ -24,8 +24,8 @@ public class ModeloService {
 	}
 
 	@Transactional
-	public Modelo salvar(Modelo carro) {
-		return repository.save(carro);
+	public Modelo salvar(Modelo modelo) {
+		return repository.save(modelo);
 	}
 
 	@Transactional

@@ -25,18 +25,22 @@
 				</div>
 				<div class="form-group row">
 					<div class="col-md-4">
-						<label for="tracao" class="col-sm-12">Tração:</label> 
-						<span class="radio-inline col-sm-12" wicket:id="tracao" id="numberRadioChoice">
-						</span>
+						<label for="tracao" class="col-sm-12">Tração:</label> <span
+							class="radio-inline col-sm-12" wicket:id="tracao"
+							id="numberRadioChoice"> </span>
 					</div>
 					<div class="col-md-4">
-						<label for="categoria" class="col-sm-6">Categoria:</label> 
-						<select wicket:id="categoria" class="form-control col-sm-10"></select>
+						<label for="categoria" class="col-sm-6">Categoria:</label> <select
+							wicket:id="categoria" class="form-control col-sm-10"></select>
 					</div>
 					<div class="col-md-4">
-						<label for="fabricante" class="col-sm-6">Fabricante:</label> <input
-							type="text" name="fabricante" class="form-control col-sm-10"
-							placeholder="Informe o fabricante" wicket:id="fabricante">
+						<label for="fabricante" class="col-sm-6">Fabricante:</label>
+						<div class="input-group">
+							<input type="text" name="fabricante" readonly
+							class="form-control col-sm-10" placeholder="Informe o fabricante"
+							wicket:id="fabricante">
+								<button href="#" type="button" wicket:id="pesquisarFabricante">Pesquisar</button>
+						</div>
 					</div>
 				</div>
 
@@ -51,6 +55,8 @@
 			</form>
 			<a href="/" class="btn btn-default">Voltar</a>
 		</div>
+	</div>
+	<div wicket:id="modal">
 	</div>
 </body>
 </html>

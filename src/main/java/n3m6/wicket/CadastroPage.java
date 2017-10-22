@@ -9,7 +9,9 @@ import javax.inject.Inject;
 
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.form.AjaxFormComponentUpdatingBehavior;
+import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.extensions.ajax.markup.html.autocomplete.AutoCompleteTextField;
+import org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.form.Button;
@@ -30,6 +32,7 @@ import org.apache.wicket.validation.ValidationError;
 import org.springframework.util.CollectionUtils;
 
 import n3m6.entity.Carro;
+import n3m6.entity.Fabricante;
 import n3m6.entity.Modelo;
 import n3m6.entity.enuns.Categoria;
 import n3m6.entity.enuns.Tracao;
@@ -63,7 +66,7 @@ public class CadastroPage extends WebPage {
 	@Override
 	protected void onInitialize() {
 		super.onInitialize();
-		Form form = new Form<>("form", new CompoundPropertyModel<>(carro));
+		Form<Carro> form = new Form<>("form", new CompoundPropertyModel<>(carro));
 		FeedbackPanel feedbackPanel = new FeedbackPanel("feedback") {
 			protected void onConfigure() {
 				setVisible(form.hasError());
@@ -88,9 +91,8 @@ public class CadastroPage extends WebPage {
 		AutoCompleteTextField<String> autoCompleteTextField = new AutoCompleteTextField<String>("modelo",
 				new PropertyModel<>(carro, "modelo.descricao")) {
 
-			@SuppressWarnings("unchecked")
 			@Override
-			protected Iterator getChoices(String input) {
+			protected Iterator<String> getChoices(String input) {
 				List<Modelo> modelos = modeloService.retrieveStartsWith(input);
 				List<String> descricaoModelos = new ArrayList<>();
 				modelos.forEach(m -> {
@@ -121,8 +123,37 @@ public class CadastroPage extends WebPage {
 				});
 		dropDownCategoria.add(new BeanPropertyValidator<Categoria>(Carro.class, "categoria"));
 		form.add(dropDownCategoria);
-		
-		form.add(createTextWithValidator("fabricante"));
+
+		IModel<Fabricante> fabricanteModel = new PropertyModel<>(carro, "fabricante");
+		TextField<Fabricante> fabricanteText = new TextField<Fabricante>("fabricante", new PropertyModel<>(carro, "fabricanteFormat"));
+		fabricanteText.add(new BeanPropertyValidator<Fabricante>(Carro.class, "fabricante"));
+		fabricanteText.setOutputMarkupId(true);
+		form.add(fabricanteText);
+	
+
+		ModalWindow modalWindow = new ModalWindow("modal");
+		ManterFabricantePanel fabricantePanel = new ManterFabricantePanel(modalWindow.getContentId(), fabricanteModel) {
+			@Override
+			protected void onSelecionarCheck(AjaxRequestTarget target) {
+				modalWindow.close(target);
+				fabricanteText.modelChanged();
+				target.add(form);
+			}
+		};
+		modalWindow.showUnloadConfirmation(false);
+		modalWindow.setContent(fabricantePanel);
+
+		add(modalWindow);
+		form.add(new AjaxLink<String>("pesquisarFabricante") {
+
+			@Override
+			public void onClick(AjaxRequestTarget target) {
+				target.add(fabricantePanel);
+				modalWindow.show(target);
+			}
+
+		});
+
 		add(form);
 
 	}
@@ -147,6 +178,15 @@ public class CadastroPage extends WebPage {
 				this.setResponsePage(new ConsultaPage());
 			}
 		};
+	}
+
+	public class FabricanteValidator implements IValidator<Fabricante> {
+
+		@Override
+		public void validate(IValidatable<Fabricante> validatable) {
+			final Fabricante field = validatable.getValue();
+
+		}
 	}
 
 	public class PlacaValidator implements IValidator<String> {
