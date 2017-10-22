@@ -180,15 +180,6 @@ public class CadastroPage extends WebPage {
 		};
 	}
 
-	public class FabricanteValidator implements IValidator<Fabricante> {
-
-		@Override
-		public void validate(IValidatable<Fabricante> validatable) {
-			final Fabricante field = validatable.getValue();
-
-		}
-	}
-
 	public class PlacaValidator implements IValidator<String> {
 
 		@Override

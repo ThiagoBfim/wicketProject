@@ -76,7 +76,7 @@ public class ManterFabricantePanel extends Panel {
 		modelInterno.setObject(new Fabricante());
 
 		
-		RadioGroup<Fabricante> group = new RadioGroup<Fabricante>("group", new PropertyModel<>(modelInterno, "selecionado")) {
+		RadioGroup<Boolean> group = new RadioGroup<Boolean>("group", Model.of(Boolean.TRUE)) {
 			@Override
 			protected void onConfigure() {
 				setVisible(!fabricantes.isEmpty());
@@ -140,7 +140,8 @@ public class ManterFabricantePanel extends Panel {
 			protected void populateItem(ListItem<Fabricante> item) {
 				item.add(new Label("nome", new PropertyModel<>(item.getModel(), "nome")));
 				item.add(new Label("pais", new PropertyModel<>(item.getModel(), "pais")));
-				Radio<Fabricante> fabricanteSelecionado = new Radio<Fabricante>("selecionado", item.getModel());
+				Radio<Boolean> fabricanteSelecionado = new Radio<Boolean>("selecionado", new PropertyModel<>(item.getModel(), "selecionado"));
+				fabricanteSelecionado.getModelObject();
 				fabricanteSelecionado.add(new AjaxEventBehavior("change") {
 
 					@Override
