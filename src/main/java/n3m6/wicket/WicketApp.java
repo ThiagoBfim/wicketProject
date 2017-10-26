@@ -14,6 +14,7 @@ public class WicketApp extends WebApplication {
 	public void init() {
 		super.init();
 		getComponentInstantiationListeners().add(new SpringComponentInjector(this));
+		mountPage("/carro/${id}", CadastroPage.class);
 		mountPage("/carro", CadastroPage.class);
 		mountPage("/carros", ConsultaPage.class);
 	}

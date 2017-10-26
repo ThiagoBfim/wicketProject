@@ -25,10 +25,12 @@ import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
+import org.apache.wicket.util.string.StringValue;
 import org.apache.wicket.validation.IValidatable;
 import org.apache.wicket.validation.IValidator;
 import org.apache.wicket.validation.ValidationError;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 
 import n3m6.entity.Carro;
 import n3m6.entity.Fabricante;
@@ -49,10 +51,22 @@ public class CadastroPage extends HomePage {
 	private ModeloService modeloService;
 
 	private IModel<Carro> carro = new Model<>();
+	private Form<Carro> form = new Form<>("form", new CompoundPropertyModel<>(carro));
 
 	public CadastroPage(final PageParameters parameters) {
 		super(parameters);
-		this.carro.setObject(new Carro());
+		StringValue id = parameters.get("id");
+		if (!StringUtils.isEmpty(id.toString())) {
+			Carro carro = carroService.obter(Integer.valueOf(id.toString()));
+			if (carro == null) {
+				form.error("Carro não Encontrado!");
+			} else {
+				this.carro.setObject(carro);
+			}
+		}
+		if (this.carro.getObject() == null) {
+			this.carro.setObject(new Carro());
+		}
 	}
 
 	public CadastroPage(Carro carro, final PageParameters parameters) {
@@ -64,7 +78,6 @@ public class CadastroPage extends HomePage {
 	@Override
 	protected void onInitialize() {
 		super.onInitialize();
-		Form<Carro> form = new Form<>("form", new CompoundPropertyModel<>(carro));
 		FeedbackPanel feedbackPanel = new FeedbackPanel("feedback") {
 			protected void onConfigure() {
 				setVisible(form.hasError());

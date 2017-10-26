@@ -43,6 +43,7 @@ public class ConsultaPage extends HomePage {
 
 	@Inject
 	private CarroService carroService;
+	
 	private List<Carro> carros = new ArrayList<>();
 
 	private WebMarkupContainer containerTable;
