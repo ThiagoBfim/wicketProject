@@ -24,6 +24,7 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
+import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.validation.IValidatable;
 import org.apache.wicket.validation.IValidator;
 import org.apache.wicket.validation.ValidationError;
@@ -41,16 +42,6 @@ import n3m6.wicket.jsr303validator.BeanPropertyValidator;
 @SuppressWarnings("serial")
 public class CadastroPage extends HomePage {
 
-	// public CadastroPage(String id, IModel<Carro> model) {
-	// super(id, model);
-	// this.carro.setObject(model.getObject());
-	// }
-	//
-	// public CadastroPage(String id) {
-	// super(id);
-	// this.carro.setObject(new Carro());
-	// }
-
 	@Inject
 	private CarroService carroService;
 
@@ -59,12 +50,15 @@ public class CadastroPage extends HomePage {
 
 	private IModel<Carro> carro = new Model<>();
 
-	public CadastroPage() {
+	public CadastroPage(final PageParameters parameters) {
+		super(parameters);
 		this.carro.setObject(new Carro());
 	}
 
-	public CadastroPage(Carro carro) {
+	public CadastroPage(Carro carro, final PageParameters parameters) {
+		super(parameters);
 		this.carro.setObject(carro);
+
 	}
 
 	@Override
@@ -184,7 +178,7 @@ public class CadastroPage extends HomePage {
 					modeloService.salvar(modelo);
 				}
 				carroService.salvar(carro.getObject());
-				this.setResponsePage(new ConsultaPage());
+				this.setResponsePage(new ConsultaPage(parameters));
 			}
 		};
 	}

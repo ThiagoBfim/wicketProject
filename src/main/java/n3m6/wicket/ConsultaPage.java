@@ -26,6 +26,7 @@ import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.model.util.ListModel;
+import org.apache.wicket.request.mapper.parameter.PageParameters;
 
 import n3m6.entity.Carro;
 import n3m6.entity.enuns.Categoria;
@@ -35,12 +36,17 @@ import n3m6.service.CarroService;
 @SuppressWarnings("serial")
 public class ConsultaPage extends HomePage {
 
+	
+	public ConsultaPage(PageParameters parameters) {
+		super(parameters);
+	}
+
 	@Inject
 	private CarroService carroService;
 	private List<Carro> carros = new ArrayList<>();
 
 	private WebMarkupContainer containerTable;
-
+	
 	@Override
 	protected void onInitialize() {
 		super.onInitialize();
@@ -161,7 +167,7 @@ public class ConsultaPage extends HomePage {
 
 			@Override
 			public void onClick(AjaxRequestTarget target) {
-				setResponsePage(new CadastroPage(carro));
+				setResponsePage(new CadastroPage(carro, parameters));
 			}
 		};
 	}

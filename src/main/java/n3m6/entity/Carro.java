@@ -17,8 +17,6 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
 import n3m6.entity.enuns.Categoria;
 import n3m6.entity.enuns.Tracao;
 import n3m6.entity.validator.PLACA;
@@ -54,54 +52,6 @@ public @Data class Carro implements Serializable {
 	@JoinColumn(name = "fabricante_id")
 	@NotNull
 	private Fabricante fabricante = new Fabricante();
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public String getPlaca() {
-		return placa;
-	}
-
-	public void setPlaca(String placa) {
-		this.placa = placa;
-	}
-
-	public Modelo getModelo() {
-		return modelo;
-	}
-
-	public void setModelo(Modelo modelo) {
-		this.modelo = modelo;
-	}
-
-	public Tracao getTracao() {
-		return tracao;
-	}
-
-	public void setTracao(Tracao tracao) {
-		this.tracao = tracao;
-	}
-
-	public Categoria getCategoria() {
-		return categoria;
-	}
-
-	public void setCategoria(Categoria categoria) {
-		this.categoria = categoria;
-	}
-
-	public Fabricante getFabricante() {
-		return fabricante;
-	}
-
-	public void setFabricante(Fabricante fabricante) {
-		this.fabricante = fabricante;
-	}
 
 	public String getFabricanteFormat() {
 		return getFabricante() == null ? null : getFabricante().toString();
