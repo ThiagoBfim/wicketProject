@@ -8,16 +8,13 @@ import org.apache.wicket.WicketRuntimeException;
 import org.apache.wicket.markup.html.form.AbstractTextComponent;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.FormComponent;
-import org.apache.wicket.markup.html.form.IFormVisitorParticipant;
 import org.apache.wicket.markup.html.form.validation.AbstractFormValidator;
-import org.apache.wicket.markup.html.form.validation.IFormValidator;
 import org.apache.wicket.model.AbstractPropertyModel;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.util.visit.IVisit;
 import org.apache.wicket.util.visit.IVisitor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.w3c.dom.views.AbstractView;
 
 /**
  * Validates a form and its components.
